@@ -11,6 +11,9 @@ export default createGlobalStyle`
   :root {
     --white: #FFFFFF;
 
+    /* --teal-50: #ebf8ff; */
+
+
     --gray-100: #e1e1e6;
     --gray-300: #a8a8b3;
     --gray-900: #121214;
@@ -18,11 +21,14 @@ export default createGlobalStyle`
     --green-580: #0D921B;
     --blue-580: #2C70F4;
 
+    --transition-speed: 600ms;
+
   }
 
   body {
     transition: var(--transition-speed);
     -webkit-font-smoothing: antialiased;
+ 
 
 
     a {

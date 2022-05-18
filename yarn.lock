@@ -421,6 +421,14 @@
     "@chakra-ui/react-utils" "2.0.0"
     "@chakra-ui/utils" "2.0.0"
 
+"@chakra-ui/pro-theme@^0.0.49":
+  version "0.0.49"
+  resolved "https://registry.yarnpkg.com/@chakra-ui/pro-theme/-/pro-theme-0.0.49.tgz#cdff77fc53c8f15ec50e4435ea0feb47dc747119"
+  integrity sha512-oNdWH08AhATD7laarx+FMfFnqYKUJCCOaUPnvFBxgmZBo7gN+xMuu9Qh6Jp3bU5IGLTjntoU9maES+WUMDIK/g==
+  dependencies:
+    "@chakra-ui/theme-tools" "2.0.0"
+    focus-visible "5.2.0"
+
 "@chakra-ui/progress@2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@chakra-ui/progress/-/progress-2.0.0.tgz#adafaf885fe9d8734ceab4f3ac548bac832cd298"
@@ -1793,6 +1801,11 @@ focus-lock@^0.9.1:
   dependencies:
     tslib "^2.0.3"
 
+focus-visible@5.2.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/focus-visible/-/focus-visible-5.2.0.tgz#3a9e41fccf587bd25dcc2ef045508284f0a4d6b3"
+  integrity sha512-Rwix9pBtC1Nuy5wysTmKy+UjbDJpIfg8eHjw0rjZ1mX4GNLz1Bmd16uDpI3Gk1i70Fgcs8Csg2lPm8HULFg9DQ==
+
 framer-motion@^6:
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-6.3.3.tgz#58978fe6955d13000351ea4c134c9bc052638967"
@@ -2554,6 +2567,11 @@ react-focus-lock@2.5.2:
     react-clientside-effect "^1.2.5"
     use-callback-ref "^1.2.5"
     use-sidecar "^1.0.5"
+
+react-icons@^4.3.1:
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/react-icons/-/react-icons-4.3.1.tgz#2fa92aebbbc71f43d2db2ed1aed07361124e91ca"
+  integrity sha512-cB10MXLTs3gVuXimblAdI71jrJx8njrJZmNMEMC+sQu5B/BIOmlsAjskdqpn81y8UBVEGuHODd7/ci5DvoSzTQ==
 
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
