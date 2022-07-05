@@ -1,47 +1,12 @@
-import { Container, OptionList, Nav, Ul, Link, Text } from './styles';
-import { FiSettings } from 'react-icons/fi';
+import { Container, Nav, Ul } from './styles';
+import { ListOptions } from './ListOptions';
 
 export default function Sidebar() {
   return (
     <Container>
       <Nav>
         <Ul>
-          <OptionList className="nav-item">
-            <Link>
-              <FiSettings color="#f2c811" size={16} />
-              <Text>
-                <span>Menu inicial</span>
-              </Text>
-            </Link>
-          </OptionList>
-
-          <OptionList className="nav-item">
-            <Link>
-              <FiSettings color="#f2c811" size={16} />
-              <Text>Menu inicial</Text>
-            </Link>
-          </OptionList>
-
-          <OptionList className="nav-item">
-            <Link>
-              <FiSettings color="#f2c811" size={16} />
-              <Text>Menu inicial</Text>
-            </Link>
-          </OptionList>
-
-          <OptionList className="nav-item">
-            <Link>
-              <FiSettings color="#f2c811" size={16} />
-              <Text>Menu inicial</Text>
-            </Link>
-          </OptionList>
-
-          <OptionList className="nav-item">
-            <Link>
-              <FiSettings color="#f2c811" size={16} />
-              <Text>Menu inicial</Text>
-            </Link>
-          </OptionList>
+          <ListOptions />
         </Ul>
       </Nav>
     </Container>

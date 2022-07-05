@@ -4,10 +4,11 @@ import {
   Center,
   Heading,
   LightMode,
-  SimpleGrid,
   Text,
 } from '@chakra-ui/react';
 import * as React from 'react';
+
+import image_home from '../assets/home.png';
 
 export default function Landing_page() {
   return (
@@ -17,7 +18,7 @@ export default function Landing_page() {
       py="12"
       position="relative"
       h={{ base: '560px', md: '100vh' }}
-      bgImage="url(https://user-images.githubusercontent.com/105650591/169059554-056bed84-6066-4dab-a173-1a536f4787e1.png)"
+      bgImage={`url(${image_home.src})`}
       bgSize="cover"
       bgPosition="center"
       _after={{

@@ -1,22 +1,43 @@
+import { useCallback, useContext, useRef, useState } from 'react';
 import {
   Box,
   Button,
   Checkbox,
   Container,
-  FormControl,
-  FormLabel,
   Heading,
   HStack,
-  Input,
   Stack,
   useBreakpointValue,
   useColorModeValue,
 } from '@chakra-ui/react';
-import * as React from 'react';
 import { Logo } from '../components/Images/Logo';
 import { PasswordField } from '../components/Inputs/PasswordField';
+import { InputUnform } from '../components/Inputs/Input';
+import { Form } from '@unform/web';
+import { AuthContext } from '../context/AuthContext';
+import { apllyToast } from '../components/Toast';
 
 export default function Login() {
+  const formRef = useRef();
+  const { signIn } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleFormSubmit = useCallback(
+    async (data) => {
+      try {
+        setLoading(true);
+        await signIn(data);
+        setLoading(false);
+      } catch (error) {
+        apllyToast('error', 'Problemas ao realizar login');
+        console.log(error);
+        setLoading(false);
+      }
+    },
+    [signIn]
+  );
+
   return (
     <Container
       maxW="lg"
@@ -35,17 +56,20 @@ export default function Login() {
         <Box
           py={{ base: '0', sm: '8' }}
           px={{ base: '4', sm: '10' }}
-          bg={useBreakpointValue({ base: 'transparent', sm: 'bg-surface' })}
+          bg={useBreakpointValue({ base: 'white', sm: 'bg-surface' })}
           boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
           borderRadius={{ base: 'none', sm: 'xl' }}
         >
-          <Stack spacing="6">
+          <Stack
+            as={Form}
+            ref={formRef}
+            onSubmit={handleFormSubmit}
+            spacing="6"
+          >
             <Stack spacing="5">
-              <FormControl>
-                <FormLabel htmlFor="cpf">CPF</FormLabel>
-                <Input id="cpf" type="number" />
-              </FormControl>
-              <PasswordField />
+              <InputUnform id="cpf" name="cpf" label="Cpf" type="input" />
+
+              <PasswordField name="password" />
             </Stack>
             <HStack justify="space-between">
               <Checkbox defaultChecked>Lembre de min</Checkbox>
@@ -54,7 +78,9 @@ export default function Login() {
               </Button>
             </HStack>
             <Stack spacing="6">
-              <Button variant="primary">Entrar</Button>
+              <Button type="submit" variant="primary" isLoading={loading}>
+                Entrar
+              </Button>
             </Stack>
           </Stack>
         </Box>
