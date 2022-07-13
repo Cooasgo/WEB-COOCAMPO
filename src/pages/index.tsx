@@ -17,7 +17,7 @@ export default function Landing_page() {
       py="12"
       position="relative"
       h={{ base: '560px', md: '100vh' }}
-      bgImage="url(https://user-images.githubusercontent.com/105650591/169059554-056bed84-6066-4dab-a173-1a536f4787e1.png)"
+      bgImage="url(https://user-images.githubusercontent.com/50926585/178729262-10df5bda-b4b6-4ebe-9729-5584554380f9.png)"
       bgSize="cover"
       bgPosition="center"
       _after={{
