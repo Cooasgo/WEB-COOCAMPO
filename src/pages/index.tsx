@@ -4,10 +4,11 @@ import {
   Center,
   Heading,
   LightMode,
-  SimpleGrid,
   Text,
 } from '@chakra-ui/react';
 import * as React from 'react';
+
+// import image_home from '../assets/home.png';
 
 export default function Landing_page() {
   return (

@@ -19,7 +19,9 @@ export default createGlobalStyle`
     --gray-900: #121214;
 
     --green-580: #0D921B;
+    
     --blue-580: #2C70F4;
+    --blue-900: #112030;
 
     --transition-speed: 600ms;
 
