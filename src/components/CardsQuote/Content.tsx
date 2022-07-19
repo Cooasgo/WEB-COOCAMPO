@@ -21,6 +21,8 @@ import {
 import * as React from 'react';
 import { FiDownloadCloud } from 'react-icons/fi';
 
+import ApexChart from '../Chart/ApexChart';
+
 interface Props {
   label: string;
   value: string;
@@ -86,12 +88,76 @@ export function Content() {
       </Stack>
       <Stack spacing={{ base: '5', lg: '6' }}>
         <SimpleGrid columns={{ base: 1, md: 2 }} gap="6">
-          <CardXG minH="xs"></CardXG>
-          <CardXG />
+          <CardXG minH="xs">
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              textAlign="center"
+              bg="blue.200"
+              w="100%"
+              h="1.8rem"
+              borderRadius="0.5rem 0.5rem 0 0"
+            >
+              <Text>Compras de medicamentos</Text>
+            </Box>
+            <Box height={270} w="98%">
+              <ApexChart />
+            </Box>
+          </CardXG>
+          <CardXG>
+            <Box
+              display="flex"
+              flexDirection="column"
+              alignItems="center"
+              textAlign="center"
+              bg="blue.200"
+              w="100%"
+              h="1.8rem"
+              borderRadius="0.5rem 0.5rem 0 0"
+            >
+              <Text>Compras de rações</Text>
+            </Box>
+            <Box height={270} w="98%">
+              <ApexChart />
+            </Box>
+          </CardXG>
         </SimpleGrid>
       </Stack>
-      <CardXG minH="xs" />
-      <CardXG minH="xs" />
+      <CardXG minH="xs">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          textAlign="center"
+          bg="blue.200"
+          w="100%"
+          h="1.8rem"
+          borderRadius="0.5rem 0.5rem 0 0"
+        >
+          <Text>Evolução peso boi</Text>
+        </Box>
+        <Box height={270} w="99%">
+          <ApexChart />
+        </Box>
+      </CardXG>
+      <CardXG minH="xs">
+        <Box
+          display="flex"
+          flexDirection="column"
+          alignItems="center"
+          textAlign="center"
+          bg="blue.200"
+          w="100%"
+          h="1.8rem"
+          borderRadius="0.5rem 0.5rem 0 0"
+        >
+          <Text>Evolução peso boi</Text>
+        </Box>
+        <Box height={270} w="99%">
+          <ApexChart />
+        </Box>
+      </CardXG>
     </Stack>
   );
 }

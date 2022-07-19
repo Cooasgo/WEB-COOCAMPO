@@ -8,10 +8,10 @@ export default function Home() {
   return (
     <>
       <Header />
-      <Sidebar />
       <Head>
         <title>Coocampo</title>
       </Head>
+      <Sidebar />
       <Container pt={{ base: '8', lg: '12' }} pb={{ base: '12', lg: '24' }}>
         <Content />
       </Container>

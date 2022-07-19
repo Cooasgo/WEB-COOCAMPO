@@ -34,7 +34,7 @@ export const options: ApexOptions = {
     axisBorder: {
       color: theme.colors.gray[600],
     },
-    categories: ['a', 'b'],
+    categories: ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'],
   },
 
   fill: {
