@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, {
   createContext,
   useCallback,
@@ -49,15 +50,15 @@ interface AuthContextData {
 
 const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
-const authChannels = new BroadcastChannel('auth');
+// const authChannels = new BroadcastChannel('auth');
 
-const AuthProvider: React.FC = ({ children }) => {
+const AuthProvider: React.FC = ({ children }: any) => {
   const [data, setData] = useState<AuthState>(() => {
     const token = localStorage.getItem('@Samasc:token');
     const user = localStorage.getItem('@Samasc:user');
 
     if (token && user) {
-      api.defaults.headers.authorization = `Bearer ${token}`;
+      api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       return { token, user: JSON.parse(user) };
     }
 
@@ -123,7 +124,7 @@ const AuthProvider: React.FC = ({ children }) => {
     localStorage.setItem('@Samasc:refresh_token', refresh_token);
     localStorage.setItem('@Samasc:user', JSON.stringify(user));
 
-    api.defaults.headers.authorization = `Bearer ${token}`;
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
     setData({ token, user });
   }, []);
@@ -138,17 +139,17 @@ const AuthProvider: React.FC = ({ children }) => {
     setData({} as AuthState);
   }, []);
 
-  useEffect(() => {
-    authChannels.onmessage = (message) => {
-      switch (message.data) {
-        case 'signOut':
-          signOut();
-          break;
-        default:
-          break;
-      }
-    };
-  }, [signOut]);
+  // useEffect(() => {
+  //   authChannels.onmessage = (message) => {
+  //     switch (message.data) {
+  //       case 'signOut':
+  //         signOut();
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //   };
+  // }, [signOut]);
 
   const updateUser = useCallback(
     (user: User) => {

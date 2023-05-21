@@ -10,6 +10,8 @@ const series = [
 
 export default function ApexChart() {
   return (
-    <Chart options={options} series={series} type={'area'} height={'105%'} />
+    <>
+    {/* <Chart options={options} series={series} type={'area'} height={'105%'} window=""/> */}
+    </>
   );
 }
