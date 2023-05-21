@@ -1,9 +1,9 @@
 /* eslint-disable no-else-return */
 import axios, { AxiosError } from 'axios';
+import { setCookie, parseCookies } from 'nookies';
 import { useAuth } from '../hooks/auth';
 
-const tokenGlobal = 'teste'
-const tokenTotalBank = localStorage.getItem('@Samasc:token');
+const cookies = parseCookies();
 
 let isRefreshing = false;
 let failedRequestsQueue: {
@@ -16,7 +16,7 @@ export const api = axios.create({
   // baseURL: 'http://localhost:3333',
   baseURL: 'http://192.168.1.48:3330/',
   headers: {
-    authorization: `Bearer ${tokenGlobal}`,
+    authorization: `Bearer ${cookies['nextauth.token']}`,
   },
 });
 
@@ -121,7 +121,11 @@ apiTBHomologação.interceptors.response.use(
               const { token } = response.data;
               console.log('api post interceptor: homologação', response.data)
               localStorage.setItem('@Samasc:token', token);
-        
+              
+              setCookie(undefined, 'nextauth.token', token, {
+                maxAge: 60 * 60 * 24 * 30, // 30 days
+                path: '/'
+              })
 
               api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 

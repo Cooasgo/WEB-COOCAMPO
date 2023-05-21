@@ -54,8 +54,11 @@ const AuthContext = createContext<AuthContextData>({} as AuthContextData);
 
 const AuthProvider: React.FC = ({ children }: any) => {
   const [data, setData] = useState<AuthState>(() => {
-    const token = localStorage.getItem('@Samasc:token');
-    const user = localStorage.getItem('@Samasc:user');
+    // const token = localStorage.getItem('@Samasc:token');
+    // const user = localStorage.getItem('@Samasc:user');
+
+    const token = '';
+    const user = '';
 
     if (token && user) {
       api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -120,9 +123,9 @@ const AuthProvider: React.FC = ({ children }: any) => {
     };
     const user = formatData;
     console.log('user', user);
-    localStorage.setItem('@Samasc:token', token);
-    localStorage.setItem('@Samasc:refresh_token', refresh_token);
-    localStorage.setItem('@Samasc:user', JSON.stringify(user));
+    // localStorage.setItem('@Samasc:token', token);
+    // localStorage.setItem('@Samasc:refresh_token', refresh_token);
+    // localStorage.setItem('@Samasc:user', JSON.stringify(user));
 
     api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
@@ -130,9 +133,9 @@ const AuthProvider: React.FC = ({ children }: any) => {
   }, []);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem('@Samasc:token');
-    localStorage.removeItem('@Samasc:refresh_token');
-    localStorage.removeItem('@Samasc:user');
+    // localStorage.removeItem('@Samasc:token');
+    // localStorage.removeItem('@Samasc:refresh_token');
+    // localStorage.removeItem('@Samasc:user');
 
     // await authChannels.postMessage('signOut');
 
@@ -153,7 +156,7 @@ const AuthProvider: React.FC = ({ children }: any) => {
 
   const updateUser = useCallback(
     (user: User) => {
-      localStorage.setItem('@Samasc:user', JSON.stringify(user));
+      // localStorage.setItem('@Samasc:user', JSON.stringify(user));
       setData({
         token: data.token,
         user,
