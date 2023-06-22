@@ -267,6 +267,7 @@ export function CardXl(props: Props) {
       bg="bg-surface"
       borderRadius="lg"
       boxShadow={useColorModeValue('xl', 'sm-dark')}
+      mb="10"
       {...boxProps}
     >
       <Stack>
@@ -307,8 +308,8 @@ export function CardXl2(props: Props) {
       // boxShadow={useColorModeValue('sm', 'sm-dark')}
       // borderRadius="lg"
       // as={Button}
-      px={{ base: '2', md: '3' }}
-      py={{ base: '3', md: '3' }}
+      w="100%"
+      px={{ base: '4', md: '6' }} py={{ base: '5', md: '6' }}
       bg="bg-surface"
       borderRadius="lg"
       boxShadow={useColorModeValue('xl', 'sm-dark')}

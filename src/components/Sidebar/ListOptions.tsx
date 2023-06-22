@@ -8,9 +8,14 @@ import { GiCow } from 'react-icons/gi';
 import { OptionList } from './styles';
 // import  Link  from 'next/link';
 import { Tooltip } from './Tooltip';
-import { Link } from '@chakra-ui/react';
+import { Link, useBreakpointValue } from '@chakra-ui/react';
 
 export function ListOptions() {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   return (
     <>
       <Tooltip label="Meus dados">
@@ -34,20 +39,24 @@ export function ListOptions() {
           </Link>
         </OptionList>
       </Tooltip>
-      <Tooltip label="Suplementação">
+      {isWideVersion && (
+        <Tooltip label="Suplementação">
         <OptionList >
         <Link href="/" >
             <GiCow color="white" size={20} />
           </Link>
         </OptionList>
       </Tooltip>
-      <Tooltip label="Vacinação">
+        )}
+      {isWideVersion && (
+        <Tooltip label="Vacinação">
         <OptionList >
         <Link href="/" >
             <RiSyringeLine color="white" size={20} />
           </Link>
         </OptionList>
       </Tooltip>
+        )}
       {/* <Tooltip label="Vacinação">
         <OptionList >
           <Link>
@@ -63,7 +72,7 @@ export function ListOptions() {
           </Link>
         </OptionList>
       </Tooltip> */}
-
+      {isWideVersion && (
       <Tooltip label="Área do técnico">
         <OptionList >
         <Link href="/" >
@@ -71,6 +80,8 @@ export function ListOptions() {
           </Link>
         </OptionList>
       </Tooltip>
+      )}
+
     </>
   );
 }

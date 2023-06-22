@@ -129,9 +129,9 @@ export function MemberTable({ handleSelectedTiti, titiSelected, openAlert, messa
         // cpfCnpjPagador: '25370286000',
         // '25370286000'
         situacaoTitulo1: sitDoc,
+        situacaoTitulo2: sitDoc === 'BAIXADO' ? 'LIQUIDADO' : '',
       }
     }).then(response => {
-      console.log('response', response.data)
       const formated = response.data?.titulos?.map((titulo: Financial) => {
         const { valueJuros, valueJurosFormated } = formatJuros({sitTiti: titulo.situacaoTitulo, tipo: titulo.jurosMora.tipo, dtJuros: titulo.jurosMora.dtJuros, valor: titulo.jurosMora.valor, totalDoc: titulo.valor})
         const { valueMulta, valueMultaFormated } = formatMulta({sitTiti: titulo.situacaoTitulo, tipo: titulo.multa.tipo, dtMulta: titulo.multa.dtMulta, valor: titulo.multa.valor, totalDoc: titulo.valor})
@@ -305,7 +305,7 @@ export function MemberTable({ handleSelectedTiti, titiSelected, openAlert, messa
       <Tr>
         <Th>
           <HStack spacing="3">
-            <Checkbox />
+            {/* <Checkbox /> */}
             <HStack spacing="1">
               <Text>Vencimento</Text>
               <Icon as={IoArrowDown} color="muted" boxSize="4" />

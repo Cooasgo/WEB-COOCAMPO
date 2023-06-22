@@ -55,6 +55,11 @@ export default function Financial() {
 
   const [sitDoc, setSitDoc] = useState('')
 
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true,
+  });
+
   const [cotCapital, setCotCapital] = useState([{
       label: 'Cota capital',
       value: 'R$ 0,00',
@@ -94,7 +99,6 @@ export default function Financial() {
   useEffect(() => {
   if(titiSelected.length > 0) {
     const formatedValue: FinancialTable[] = titiSelected.map(item => JSON.parse(item))
-    console.log('r', formatedValue)
     const r = formatedValue.reduce((acum, vlrT) => {
       return acum + vlrT.totalPg;
     }, 0)
@@ -108,7 +112,6 @@ export default function Financial() {
   }, [titiSelected])
 
   const handlePrintTitiles = useCallback(() => {
-    console.log('rrerere')
     setOpenAlert(true);
     setMessageAlert('Trabalhando nos arquivos...');
     setTimeout(() => {
@@ -261,7 +264,7 @@ export default function Financial() {
       <Head>
         <title>Financeiro - Coocampo</title>
       </Head>
-      <Container pt={{ base: '8', lg: '10' }} pb={{ base: '12', lg: '24' }}>
+      <Container pt={{ base: '8', lg: '12' }} pb={{ base: '12', lg: '24' }}>
       {/* <Container py={{ base: '4', md: '8' }} px={{ base: '0', md: 8 }}> */}
 
       <Box
@@ -275,10 +278,10 @@ export default function Financial() {
                 Resumo financeiro
           </Text>
         </Box>
-        <Stack spacing="5" alignItems="center">
-          <Box px={{ base: '4', md: '6' }} pt="5">
+        <Stack spacing="5" alignItems="center" >
+          <Box px={{ base: '4', md: '6' }} pt="5" w={isWideVersion ? '' : '100%'}>
          
-            <Stack direction={{ base: 'column', md: 'row' }} >
+            <Stack direction={{ base: 'column', md: 'row' }} w="100%">
              
               {/* <InputGroup maxW="xs">
                 <InputLeftElement pointerEvents="none">
@@ -287,7 +290,7 @@ export default function Financial() {
                 <Input placeholder="Search" />
               </InputGroup> */}
 
-                    <Flex  flexDir="column">
+                    <Flex  flexDir="column" w="100%">
 
                     <Box position='relative' padding='10'>
                           <Divider />
@@ -295,8 +298,8 @@ export default function Financial() {
                             Saldo cota capital
                           </AbsoluteCenter>
                         </Box>
-                        <Stack spacing={{ base: '5', lg: '6' }}>
-                      <SimpleGrid gap="0.5">
+                        <Stack spacing={{ base: '5', lg: '6' }} w="100%">
+                      <SimpleGrid gap="0.5" w="100%">
                         {cotCapital?.map((stat, id) => (
                           <CardXl2 key={id} {...stat} />
                           ))}
@@ -346,9 +349,7 @@ export default function Financial() {
           </Box>
 
         
-          <Box overflowX="auto">
-            <MemberTable sitDoc={sitDoc} handleSelectedTiti={handleSelectedTiti} titiSelected={titiSelected} openAlert={openAlert} messageAlert={messageAlert} handleClose={handleClose}/>
-          </Box>
+          
           {/* <Box px={{ base: '4', md: '6' }} pb="5">
             <HStack spacing="3" justify="space-between">
               {!isMobile && (
@@ -371,6 +372,9 @@ export default function Financial() {
          
         
         </Stack>
+        <Box overflowX="auto">
+            <MemberTable sitDoc={sitDoc} handleSelectedTiti={handleSelectedTiti} titiSelected={titiSelected} openAlert={openAlert} messageAlert={messageAlert} handleClose={handleClose}/>
+          </Box>
         <Box  p="6">
 
             <Collapse in={titiSelected.length > 0} animateOpacity>
@@ -383,7 +387,7 @@ export default function Financial() {
         </Box>
       </Box>
     </Container>
-      {/* </Container> */}
+
       <Sidebar />
     </>
   );
