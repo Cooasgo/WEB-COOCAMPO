@@ -34,7 +34,7 @@ export default function Header() {
       alignItems="center"
 
     >
-      <Stack ml="10" display="flex" alignItems="center" justifyContent="space-between" flexDirection="row" w="100%"  pr={isWideVersion ? "10rem" : ''} >
+      <Stack ml={isWideVersion ? '10' : "6"} display="flex" alignItems="center" justifyContent="space-between" flexDirection="row" w="100%"  pr={isWideVersion ? "10rem" : ''} >
       <Stack flexDirection="row" >
         {/* <Logo size="39" /> */}
         <Center>
