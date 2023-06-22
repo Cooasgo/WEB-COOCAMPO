@@ -1,50 +1,49 @@
 import {
   FiUser,
-  FiMapPin,
-  FiCalendar,
   FiTool,
   FiDollarSign,
 } from 'react-icons/fi';
 import { RiSeedlingLine, RiSyringeLine } from 'react-icons/ri';
 import { GiCow } from 'react-icons/gi';
 import { OptionList } from './styles';
-import  Link  from 'next/link';
+// import  Link  from 'next/link';
 import { Tooltip } from './Tooltip';
+import { Link } from '@chakra-ui/react';
 
 export function ListOptions() {
   return (
     <>
       <Tooltip label="Meus dados">
           <OptionList >
-          <Link href="/home">
+          <Link href="/home" >
               <FiUser color="white" size={20} />
           </Link>
           </OptionList>
       </Tooltip>
-      <Tooltip label="Financeiro">
+      <Tooltip label="Financeiro" >
         <OptionList >
-        <Link href="/financial">
+        <Link href="/financial" >
             <FiDollarSign color="white" size={20} />
           </Link>
         </OptionList>
       </Tooltip>
       <Tooltip label="Pastagem">
         <OptionList >
-        <Link href="/">
+        <Link href="/" >
             <RiSeedlingLine color="white" size={20} />
           </Link>
         </OptionList>
       </Tooltip>
       <Tooltip label="Suplementação">
         <OptionList >
-        <Link href="/">
+        <Link href="/" >
             <GiCow color="white" size={20} />
           </Link>
         </OptionList>
       </Tooltip>
       <Tooltip label="Vacinação">
         <OptionList >
-        <Link href="/">
+        <Link href="/" >
             <RiSyringeLine color="white" size={20} />
           </Link>
         </OptionList>
@@ -67,7 +66,7 @@ export function ListOptions() {
 
       <Tooltip label="Área do técnico">
         <OptionList >
-        <Link href="/">
+        <Link href="/" >
             <FiTool color="white" size={20} />
           </Link>
         </OptionList>

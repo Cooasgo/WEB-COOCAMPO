@@ -9,6 +9,7 @@ import {
   InputGroup,
   InputProps,
   InputRightElement,
+  Tooltip,
   useDisclosure,
   useMergeRefs,
 } from '@chakra-ui/react';
@@ -40,28 +41,32 @@ export const PasswordField = React.forwardRef<HTMLInputElement, InputProps>(
     }, [fieldName, registerField]);
 
     return (
-      <FormControl>
-        <FormLabel htmlFor="password">Senha</FormLabel>
-        <InputGroup>
-          <InputRightElement>
-            <IconButton
-              variant="link"
-              aria-label={isOpen ? 'Mask password' : 'Reveal password'}
-              icon={isOpen ? <HiEyeOff /> : <HiEye />}
-              onClick={onClickReveal}
+      <>
+      <Tooltip hasArrow label={error} bg="#c53030">
+        <FormControl>
+          <FormLabel htmlFor="password">Senha</FormLabel>
+          <InputGroup>
+            <InputRightElement>
+              <IconButton
+                variant="link"
+                aria-label={isOpen ? 'Mask password' : 'Reveal password'}
+                icon={isOpen ? <HiEyeOff /> : <HiEye />}
+                onClick={onClickReveal}
+              />
+            </InputRightElement>
+            <Input
+              id="password"
+              ref={mergeRef}
+              name="password"
+              type={isOpen ? 'text' : 'password'}
+              autoComplete="current-password"
+              isInvalid={!!error} 
+              {...props}
             />
-          </InputRightElement>
-          <Input
-            id="password"
-            ref={mergeRef}
-            name="password"
-            type={isOpen ? 'text' : 'password'}
-            autoComplete="current-password"
-            required
-            {...props}
-          />
-        </InputGroup>
-      </FormControl>
+          </InputGroup>
+        </FormControl>
+      </Tooltip>
+      </>
     );
   }
 );

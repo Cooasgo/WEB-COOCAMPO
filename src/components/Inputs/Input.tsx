@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react';
-import { FormControl, FormLabel, Input } from '@chakra-ui/react';
+import { FormControl, FormLabel, Input, Tooltip } from '@chakra-ui/react';
 import { useField } from '@unform/core';
 
 interface PropsInput {
@@ -10,7 +10,7 @@ interface PropsInput {
 }
 
 export function InputUnform({ name, label, type, id, ...rest }: PropsInput) {
-  const inputRef = useRef();
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { fieldName, registerField, error } = useField(name);
 
@@ -23,9 +23,11 @@ export function InputUnform({ name, label, type, id, ...rest }: PropsInput) {
   }, [fieldName, registerField]);
 
   return (
-    <FormControl>
-      <FormLabel htmlFor={id}>{label}</FormLabel>
-      <Input ref={inputRef} id={id} type={type} {...rest} />
-    </FormControl>
+      <Tooltip hasArrow label={error} bg="#c53030">
+        <FormControl>
+          <FormLabel htmlFor={id}>{label}</FormLabel>
+          <Input ref={inputRef} id={id} type={type} isInvalid={!!error} {...rest} />
+        </FormControl>
+      </Tooltip>
   );
 }

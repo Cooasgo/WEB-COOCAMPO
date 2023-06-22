@@ -1,96 +1,118 @@
+import { useCallback, useContext, useRef, useState } from 'react';
 import {
   Box,
   Button,
   Center,
+  Checkbox,
+  Container,
   Heading,
-  LightMode,
-  Text,
+  HStack,
+  Image,
+  Stack,
+  useBreakpointValue,
+  useColorModeValue,
 } from '@chakra-ui/react';
-import * as React from 'react';
+// import { Logo } from '../components/Images/Logo';
+import { PasswordField } from '../components/Inputs/PasswordField';
+import { InputUnform } from '../components/Inputs/Input';
+import { Form } from '@unform/web';
+import getValidationErrors from '../components/utils/getValidationErrors';
+import { apllyToast } from '../components/Toast';
+import { FormHandles } from '@unform/core';
+import { AuthContext } from '../context/AuthContext';
+import * as Yup from 'yup';
 
-// import image_home from '../assets/home.png';
+interface SingInFormData {
+  user: string;
+  password: string;
+}
 
-export default function Landing_page() {
+export default function Login() {
+  const { signIn } = useContext(AuthContext)
+  const formRef = useRef<FormHandles>(null);
+  // const { signIn } = useContext(AuthContext);
+
+  const [loading, setLoading] = useState(false);
+
+  const handleFormSubmit = useCallback(
+    async (data: SingInFormData) => {
+      try {
+        setLoading(true);
+
+        formRef.current?.setErrors({});
+
+        const schema = Yup.object().shape({
+          user: Yup.string().required('Nome de usuário obigatório'),
+          password: Yup.string().required('Senha obrigatória'),
+        });
+         console.log('teste',data)
+        await schema.validate(data, {
+          abortEarly: false,
+        });
+        await signIn(data);
+        setLoading(false);
+      } catch (error) {
+        console.log('error',error)
+        if (error instanceof Yup.ValidationError) {
+          setLoading(false);
+          const errors = getValidationErrors(error);
+          formRef.current?.setErrors(errors);
+          return;
+        }
+        apllyToast('error', 'Problemas ao realizar login');
+        setLoading(false);
+      }
+    },
+    [signIn]
+  );
+
   return (
-    <Box
-      as="section"
-      bg="white"
-      py="12"
-      position="relative"
-      h={{ base: '560px', md: '100vh' }}
-      bgImage="url(https://user-images.githubusercontent.com/50926585/178729262-10df5bda-b4b6-4ebe-9729-5584554380f9.png)"
-      bgSize="cover"
-      bgPosition="center"
-      _after={{
-        content: `""`,
-        display: 'block',
-        w: 'full',
-        h: 'full',
-        bg: 'blackAlpha.600',
-        position: 'absolute',
-        inset: 0,
-        zIndex: 0,
-      }}
+    <Container
+      maxW="lg"
+      py={{ base: '8', md: '24' }}
+      px={{ base: '0', sm: '8' }}
     >
-      <Box
-        maxW={{ base: 'xl', md: '7xl' }}
-        mx="auto"
-        px={{ base: '6', md: '8' }}
-        h="full"
-        zIndex={1}
-        position="relative"
-      >
-        <Center
-          flexDirection="column"
-          textAlign="center"
-          color="white"
-          h="full"
+      <Stack spacing="8">
+        <Stack spacing="6">
+          {/* <Logo size="57" /> */}
+          <Center>
+          <Image src="https://github.com/Cooasgo/WEB-COOCAMPO/assets/105650591/fbf4c4d8-ebb7-404e-96ae-72b5685c6418" alt="log" w="70%" />
+          </Center>
+          <Stack spacing={{ base: '2', md: '3' }} textAlign="center">
+            <Heading size={useBreakpointValue({ base: 'xs', md: 'sm' })}>
+              Faça login na sua conta
+            </Heading>
+          </Stack>
+        </Stack>
+        <Box
+          py={{ base: '0', sm: '8' }}
+          px={{ base: '4', sm: '10' }}
+          bg={useBreakpointValue({ base: 'white', sm: 'bg-surface' })}
+          boxShadow={{ base: 'none', sm: useColorModeValue('md', 'md-dark') }}
+          borderRadius={{ base: 'none', sm: 'xl' }}
         >
-          <Heading size="2xl" fontWeight="extrabold">
-            Software Coocampo
-          </Heading>
-          <Text fontSize="lg" fontWeight="medium" mt="3">
-            Tenha total controle sobre seu agronegócio
-          </Text>
-          <LightMode>
-            <Button
-              colorScheme="blue"
-              size="lg"
-              mt="6"
-              fontWeight="bold"
-              fontSize="md"
-            >
-              Acessar plataforma
-            </Button>
-          </LightMode>
-        </Center>
-      </Box>
-      {/* <Box
-        display={{ base: 'none', md: 'block' }}
-        position="absolute"
-        zIndex={2}
-        w="full"
-        bottom="0"
-        py="4"
-        bg="blackAlpha.400"
-      >
-        <Box maxW={{ base: 'xl', md: '7xl' }} mx="auto">
-          <SimpleGrid columns={{ base: 1, md: 3 }}>
-            <Box textAlign="center" color="white">
-              <Text>A Gig is won every</Text>
-              <Text fontSize="3xl">10 MIN</Text>
-            </Box>
-            <Box textAlign="center" color="white">
-              <Text>Transactions</Text>
-              <Text fontSize="3xl">6.4M+</Text>
-            </Box>
-            <Box textAlign="center" color="white">
-              <Text>Price Range</Text>
-              <Text fontSize="3xl">$5k - $12K</Text>
-            </Box>
-          </SimpleGrid>
+          <Form ref={formRef} onSubmit={handleFormSubmit}>
+          <Stack spacing="6">
+            <Stack spacing="5">
+              <InputUnform id="user" name="user" label="Usuário" type="input" />
+
+              <PasswordField name="password" />
+            </Stack>
+            <HStack justify="space-between">
+              <Checkbox defaultChecked>Lembre de min</Checkbox>
+              <Button variant="link" colorScheme="blue" size="sm">
+                Esqueceu sua senha?
+              </Button>
+            </HStack>
+            <Stack spacing="6">
+              <Button type="submit" variant="primary" isLoading={loading}>
+                Entrar
+              </Button>
+            </Stack>
+          </Stack>
+          </Form>
         </Box>
-      </Box> */}
-    </Box>
+      </Stack>
+    </Container>
   );
 }

@@ -3,7 +3,7 @@ import axios, { AxiosError } from 'axios';
 import { setCookie, parseCookies } from 'nookies';
 import { useAuth } from '../hooks/auth';
 
-const cookies = parseCookies();
+let cookies = parseCookies();
 
 let isRefreshing = false;
 let failedRequestsQueue: {
@@ -14,7 +14,7 @@ let failedRequestsQueue: {
 export const api = axios.create({
   // baseURL: process.env.REACT_APP_API_URL,
   // baseURL: 'http://localhost:3333',
-  baseURL: 'http://192.168.1.48:3330/',
+  baseURL: 'https://samasc.cooasgo.com.br:3333',
   headers: {
     authorization: `Bearer ${cookies['nextauth.token']}`,
   },
@@ -36,25 +36,32 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       if (error.response.data?.code === 'token.expired') {
-        const token_refresh = localStorage.getItem('@Samasc:refresh_token');
+       cookies = parseCookies();
+        
+        const { 'nextauth.refresh_token': refresh_token } = cookies
+
         const originalConfig = error.config;
 
         if (!isRefreshing) {
           isRefreshing = true;
           api
-            .post('/refresh-token', {
-              refresh_token: token_refresh,
+            .post('/refresh_token', {
+              refresh_token: refresh_token,
             })
             .then((response) => {
               const { token } = response.data;
 
-              localStorage.setItem('@Samasc:token', token);
-              localStorage.setItem(
-                '@Samasc:refresh_token',
-                response.data.refresh_token
-              );
-
+              setCookie(undefined, 'nextauth.token', token, {
+                maxAge: 60 * 60 * 24 *30,
+                path: '/'
+              });
+              setCookie(undefined, 'nextauth.refresh_token', response.data.refresh_token, {
+                maxAge: 60 * 60 * 24 *30,
+                path: '/'
+              });
+              
               api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
               failedRequestsQueue.forEach((request) =>
                 request.onSuccess(token)
               );
