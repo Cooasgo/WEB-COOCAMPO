@@ -34,7 +34,7 @@ export default function Header() {
       alignItems="center"
 
     >
-      <Stack ml="10" display="flex" alignItems="center" justifyContent="space-between" flexDirection="row" w="100%"  pr={isWideVersion ? "10rem" : ''}>
+      <Stack ml="10" display="flex" alignItems="center" justifyContent="space-between" flexDirection="row" w="100%"  pr={isWideVersion ? "10rem" : ''} >
       <Stack flexDirection="row" >
         {/* <Logo size="39" /> */}
         <Center>
@@ -46,10 +46,13 @@ export default function Header() {
       </Stack>
 
       <Flex direction="row" alignItems="center">
+        {isWideVersion &&  (
         <Text as="span" fontSize="14" fontWeight="400" pr="3">
         {userData?.TransacionadorNome}
         </Text>
-        <Button type="button" size="xs" colorScheme="red" leftIcon={<FiLogOut size={20}/>} onClick={() => signOut()} >
+
+        )}
+        <Button type="button" size="sm" colorScheme="red" leftIcon={<FiLogOut size={20}/>} onClick={() => signOut()} mr={isWideVersion ? '' : "6"}>
           Sair
         </Button>
       </Flex>
